@@ -1,11 +1,11 @@
 package cn.xiaomizhou.springframework;
 
-public class BeansException extends Exception{
-    public BeansException(String instantiation_of_bean_failed, ReflectiveOperationException e) {
-
+public class BeansException extends RuntimeException{
+    public BeansException(String msg) {
+        super(msg);
     }
 
-    public BeansException(String instantiation_of_bean_failed) {
-
+    public BeansException(String msg, Throwable cause) {
+        super(msg, cause);
     }
 }

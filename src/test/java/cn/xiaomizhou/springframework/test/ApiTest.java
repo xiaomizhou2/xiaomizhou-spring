@@ -19,4 +19,16 @@ public class ApiTest {
         UserService userService = (UserService) beanFactory.getBean("userService");
         userService.query();
     }
+
+    @Test
+    public void test_beanFactory2() throws BeansException {
+        //初始化beanFactory
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        //注册bean
+        BeanDefinition beanDefinition = new BeanDefinition(UserService.class);
+        beanFactory.registerBeanDefinition("userService", beanDefinition);
+
+        UserService userService = (UserService) beanFactory.getBean("userService", "小米粥");
+        userService.query();
+    }
 }
