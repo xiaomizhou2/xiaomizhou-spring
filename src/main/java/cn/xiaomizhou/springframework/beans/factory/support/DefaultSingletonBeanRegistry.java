@@ -1,6 +1,6 @@
-package cn.xiaomizhou.springframework.factory.support;
+package cn.xiaomizhou.springframework.beans.factory.support;
 
-import cn.xiaomizhou.springframework.factory.config.SingletonBeanRegistry;
+import cn.xiaomizhou.springframework.beans.factory.config.SingletonBeanRegistry;
 
 import java.util.HashMap;
 import java.util.Map;

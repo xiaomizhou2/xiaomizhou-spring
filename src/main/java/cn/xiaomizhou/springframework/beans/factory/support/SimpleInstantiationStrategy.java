@@ -1,7 +1,7 @@
-package cn.xiaomizhou.springframework.factory.support;
+package cn.xiaomizhou.springframework.beans.factory.support;
 
-import cn.xiaomizhou.springframework.BeansException;
-import cn.xiaomizhou.springframework.factory.config.BeanDefinition;
+import cn.xiaomizhou.springframework.beans.BeansException;
+import cn.xiaomizhou.springframework.beans.factory.config.BeanDefinition;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

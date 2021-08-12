@@ -1,8 +1,8 @@
-package cn.xiaomizhou.springframework.factory.support;
+package cn.xiaomizhou.springframework.beans.factory.support;
 
-import cn.xiaomizhou.springframework.BeansException;
-import cn.xiaomizhou.springframework.factory.BeanFactory;
-import cn.xiaomizhou.springframework.factory.config.BeanDefinition;
+import cn.xiaomizhou.springframework.beans.BeansException;
+import cn.xiaomizhou.springframework.beans.factory.BeanFactory;
+import cn.xiaomizhou.springframework.beans.factory.config.BeanDefinition;
 
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
 

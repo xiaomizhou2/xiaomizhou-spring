@@ -1,4 +1,4 @@
-package cn.xiaomizhou.springframework;
+package cn.xiaomizhou.springframework.beans;
 
 public class BeansException extends RuntimeException{
     public BeansException(String msg) {

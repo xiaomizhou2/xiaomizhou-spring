@@ -1,4 +1,4 @@
-package cn.xiaomizhou.springframework.factory.config;
+package cn.xiaomizhou.springframework.beans.factory.config;
 
 public interface SingletonBeanRegistry {
 
