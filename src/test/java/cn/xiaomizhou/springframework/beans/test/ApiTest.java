@@ -6,6 +6,7 @@ import cn.xiaomizhou.springframework.beans.PropertyValues;
 import cn.xiaomizhou.springframework.beans.factory.config.BeanDefinition;
 import cn.xiaomizhou.springframework.beans.factory.config.BeanReference;
 import cn.xiaomizhou.springframework.beans.factory.support.DefaultListableBeanFactory;
+import cn.xiaomizhou.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import cn.xiaomizhou.springframework.beans.test.bean.UserDao;
 import cn.xiaomizhou.springframework.beans.test.bean.UserService;
 import org.junit.Test;
@@ -50,6 +51,18 @@ public class ApiTest {
         beanFactory.registerBeanDefinition("userService", beanDefinition);
 
         UserService userService = (UserService) beanFactory.getBean("userService");
+        userService.query();
+    }
+
+    @Test
+    public void test_xml() {
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+
+        //读取配置文件&注册bean
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        reader.loadBeanDefinitions("classpath:spring.xml");
+
+        UserService userService = (UserService) beanFactory.getBean("userService", UserService.class);
         userService.query();
     }
 }
