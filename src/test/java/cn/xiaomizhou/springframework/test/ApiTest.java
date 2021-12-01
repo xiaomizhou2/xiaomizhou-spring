@@ -20,7 +20,7 @@ public class ApiTest {
         BeanDefinition userBeanDefinition = new BeanDefinition(new UserService());
         factory.registerBeanDefinition("userService", userBeanDefinition);
 
-        //3.获取bean123
+        //3.获取bean
         UserService userService = (UserService) factory.getBean("userService");
         userService.queryUserInfo();
     }
