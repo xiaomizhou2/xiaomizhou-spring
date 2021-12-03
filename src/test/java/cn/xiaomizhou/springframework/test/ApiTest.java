@@ -19,7 +19,7 @@ public class ApiTest {
         BeanDefinition beanDefinition = new BeanDefinition(UserService.class);
         factory.registryBeanDefinition("userService", beanDefinition);
 
-        UserService userService = (UserService) factory.getBean("userService");
+        UserService userService = (UserService) factory.getBean("userService", "zyx");
         userService.queryUserInfo();
     }
 }
