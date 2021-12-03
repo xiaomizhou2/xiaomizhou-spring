@@ -6,20 +6,27 @@ package cn.xiaomizhou.springframework.test.bean;
  */
 public class UserService {
 
-    private String name;
+    private String uid;
 
-    public UserService(String name) {
-        this.name = name;
+    private UserDao userDao;
+
+   public void queryUserInfo() {
+       System.out.println("查询用户信息：" + userDao.queryUserName(uid));
+   }
+
+    public String getUid() {
+        return uid;
     }
 
-    public void queryUserInfo() {
-        System.out.println("查询用户信息：" + name);
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("");
-        sb.append("").append(name);
-        return sb.toString();
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }
