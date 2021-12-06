@@ -2,15 +2,15 @@
 
 #### 容器篇：IOC
 
-- [x] 1.创建简单的Bean容器
+- [x] 1.创建简单的Bean容器 <font color=red>branch</font> **xiaomizhou-spring-step-01**
 
-- [x] 2.实现Bean的定义、注册和获取
+- [x] 2.实现Bean的定义、注册和获取 <font color=red>branch</font> **xiaomizhou-spring-step-02**
 
-- [x] 3.对象实例化策略
+- [x] 3.对象实例化策略 <font color=red>branch</font> **xiaomizhou-spring-step-03**
 
-- [x] 4.注入属性和依赖对象
+- [x] 4.注入属性和依赖对象 <font color=red>branch</font> **xiaomizhou-spring-step-04**
 
-- [x] 5.资源加载器解析文件注册对象
+- [x] 5.资源加载器解析文件注册对象 <font color=red>branch</font> **xiaomizhou-spring-step-05**
 
 - [ ] 6.应用上下文
 
