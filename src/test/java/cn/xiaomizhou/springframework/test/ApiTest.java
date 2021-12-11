@@ -7,10 +7,13 @@ import cn.xiaomizhou.springframework.beans.factory.config.BeanDefinition;
 import cn.xiaomizhou.springframework.beans.factory.config.BeanReference;
 import cn.xiaomizhou.springframework.beans.factory.support.DefaultListableBeanFactory;
 import cn.xiaomizhou.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import cn.xiaomizhou.springframework.context.support.ClassPathXmlApplicationContext;
 import cn.xiaomizhou.springframework.core.io.DefaultResourceLoader;
 import cn.xiaomizhou.springframework.core.io.Resource;
 import cn.xiaomizhou.springframework.test.bean.UserDao;
 import cn.xiaomizhou.springframework.test.bean.UserService;
+import cn.xiaomizhou.springframework.test.common.MyBeanFactoryPostProcessor;
+import cn.xiaomizhou.springframework.test.common.MyBeanPostProcessor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,48 +27,36 @@ import java.io.InputStream;
  */
 public class ApiTest {
 
-    private DefaultResourceLoader resourceLoader;
-
-    @Before
-    public void init() {
-        resourceLoader = new DefaultResourceLoader();
-    }
-
     @Test
-    public void test_classpath() throws IOException {
-        Resource resource = resourceLoader.getResource("classpath:application.properties");
-        InputStream inputStream = resource.getInputStream();
-        String s = IoUtil.readUtf8(inputStream);
-        System.out.println(s);
-    }
+    public void test_BeanFactoryPostProcessorAndBeanPostProcessor() {
+        //1.初始化 BeanFactory
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
-    @Test
-    public void test_file() throws IOException {
-        Resource resource = resourceLoader.getResource("src/test/resources/application.properties");
-        InputStream inputStream = resource.getInputStream();
-        String s = IoUtil.readUtf8(inputStream);
-        System.out.println(s);
-    }
+        //2.读取配置文件，注册bean
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        reader.loadBeanDefinitions("classpath:spring.xml");
 
-    @Test
-    public void test_url() throws IOException {
-        Resource resource = resourceLoader.getResource("https://github.com/fuzhengwei/small-spring/important.properties");
-        InputStream inputStream = resource.getInputStream();
-        String s = IoUtil.readUtf8(inputStream);
-        System.out.println(s);
+        //3.BeanDefinition 加载完成 & Bean 实例化之前，修改 BeanDefinition 的属性
+        MyBeanFactoryPostProcessor beanFactoryPostProcessor = new MyBeanFactoryPostProcessor();
+        beanFactoryPostProcessor.postProcessBeanFactory(beanFactory);
+
+        //4.Bean 实例化后修改 Bean 的属性
+        MyBeanPostProcessor beanPostProcessor = new MyBeanPostProcessor();
+        beanFactory.addBeanPostProcessor(beanPostProcessor);
+
+        UserService userService = beanFactory.getBean("userService", UserService.class);
+        userService.queryUserInfo();
+
+        System.out.println(userService);
     }
 
     @Test
     public void test_xml() {
-        //1.初始化 BeanFactory
-        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        ClassPathXmlApplicationContext applicationContext =
+                new ClassPathXmlApplicationContext("classpath:spring-post-processor.xml");
 
-        //2.读取配置文件&注册bean
-        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
-        reader.loadBeanDefinitions("classpath:spring.xml");
-
-        //3.获取Bean对象调用方法
-        UserService userService = beanFactory.getBean("userService", UserService.class);
+        UserService userService = applicationContext.getBean("userService", UserService.class);
         userService.queryUserInfo();
+        System.out.println(userService);
     }
 }
