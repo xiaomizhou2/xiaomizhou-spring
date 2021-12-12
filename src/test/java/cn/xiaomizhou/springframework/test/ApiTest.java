@@ -28,32 +28,10 @@ import java.io.InputStream;
 public class ApiTest {
 
     @Test
-    public void test_BeanFactoryPostProcessorAndBeanPostProcessor() {
-        //1.初始化 BeanFactory
-        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
-
-        //2.读取配置文件，注册bean
-        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
-        reader.loadBeanDefinitions("classpath:spring.xml");
-
-        //3.BeanDefinition 加载完成 & Bean 实例化之前，修改 BeanDefinition 的属性
-        MyBeanFactoryPostProcessor beanFactoryPostProcessor = new MyBeanFactoryPostProcessor();
-        beanFactoryPostProcessor.postProcessBeanFactory(beanFactory);
-
-        //4.Bean 实例化后修改 Bean 的属性
-        MyBeanPostProcessor beanPostProcessor = new MyBeanPostProcessor();
-        beanFactory.addBeanPostProcessor(beanPostProcessor);
-
-        UserService userService = beanFactory.getBean("userService", UserService.class);
-        userService.queryUserInfo();
-
-        System.out.println(userService);
-    }
-
-    @Test
     public void test_xml() {
         ClassPathXmlApplicationContext applicationContext =
-                new ClassPathXmlApplicationContext("classpath:spring-post-processor.xml");
+                new ClassPathXmlApplicationContext("classpath:spring.xml");
+        applicationContext.registerShutdownHook();
 
         UserService userService = applicationContext.getBean("userService", UserService.class);
         userService.queryUserInfo();
