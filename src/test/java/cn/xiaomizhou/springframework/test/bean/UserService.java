@@ -1,10 +1,14 @@
 package cn.xiaomizhou.springframework.test.bean;
 
+import cn.xiaomizhou.springframework.beans.BeansException;
+import cn.xiaomizhou.springframework.beans.factory.DisposableBean;
+import cn.xiaomizhou.springframework.beans.factory.InitializingBean;
+
 /**
  * @author Yaxi Zhang
  * @date 2021/12/1
  */
-public class UserService {
+public class UserService implements InitializingBean, DisposableBean {
 
     private String uid;
     private UserDao userDao;
@@ -55,5 +59,15 @@ public class UserService {
                 ", company='" + company + '\'' +
                 ", location='" + location + '\'' +
                 '}';
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("执行：UserService.destroy");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws BeansException {
+        System.out.println("执行：UserService.afterPropertiesSet");
     }
 }

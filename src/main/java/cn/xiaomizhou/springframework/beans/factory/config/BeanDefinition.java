@@ -16,6 +16,16 @@ public class BeanDefinition {
 
     private PropertyValues propertyValues;
 
+    /**
+     * <p>
+     *     新增两个属性 initMethodName destroyMethodName
+     *     这两个属性是为了在spring.xml配置的Bean对象中，可以配置init-method destroy-method
+     * </p>
+     */
+    private String initMethodName;
+
+    private String destroyMethodName;
+
     public BeanDefinition(Class beanClass) {
         this.beanClass = beanClass;
         this.propertyValues = new PropertyValues();
@@ -40,5 +50,21 @@ public class BeanDefinition {
 
     public void setPropertyValues(PropertyValues propertyValues) {
         this.propertyValues = propertyValues;
+    }
+
+    public String getInitMethodName() {
+        return initMethodName;
+    }
+
+    public void setInitMethodName(String initMethodName) {
+        this.initMethodName = initMethodName;
+    }
+
+    public String getDestroyMethodName() {
+        return destroyMethodName;
+    }
+
+    public void setDestroyMethodName(String destroyMethodName) {
+        this.destroyMethodName = destroyMethodName;
     }
 }
