@@ -12,9 +12,9 @@
 
 - [x] 5.资源加载器解析文件注册对象 <font color=red>branch</font> **xiaomizhou-spring-step-05**
 
-- [ ] 6.应用上下文
+- [x] 6.应用上下文
 
-- [ ] 7.初始化和销毁方法
+- [x] 7.初始化和销毁方法
 
 - [ ] 8.Aware感知容器对象
 
