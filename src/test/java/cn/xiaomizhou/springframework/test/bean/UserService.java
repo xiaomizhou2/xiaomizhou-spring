@@ -1,14 +1,18 @@
 package cn.xiaomizhou.springframework.test.bean;
 
 import cn.xiaomizhou.springframework.beans.BeansException;
-import cn.xiaomizhou.springframework.beans.factory.DisposableBean;
-import cn.xiaomizhou.springframework.beans.factory.InitializingBean;
+import cn.xiaomizhou.springframework.beans.factory.*;
+import cn.xiaomizhou.springframework.context.ApplicationContext;
+import cn.xiaomizhou.springframework.context.ApplicationContextAware;
 
 /**
  * @author Yaxi Zhang
  * @date 2021/12/1
  */
-public class UserService implements InitializingBean, DisposableBean {
+public class UserService implements BeanNameAware, BeanClassLoaderAware, ApplicationContextAware, BeanFactoryAware {
+
+    private ApplicationContext applicationContext;
+    private BeanFactory beanFactory;
 
     private String uid;
     private UserDao userDao;
@@ -51,6 +55,14 @@ public class UserService implements InitializingBean, DisposableBean {
         this.location = location;
     }
 
+    public ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
+    public BeanFactory getBeanFactory() {
+        return beanFactory;
+    }
+
     @Override
     public String toString() {
         return "UserService{" +
@@ -61,13 +73,24 @@ public class UserService implements InitializingBean, DisposableBean {
                 '}';
     }
 
+
     @Override
-    public void destroy() throws Exception {
-        System.out.println("执行：UserService.destroy");
+    public void setBeanClassLoader(ClassLoader classLoader) {
+        System.out.println("Classloader: " + classLoader);
     }
 
     @Override
-    public void afterPropertiesSet() throws BeansException {
-        System.out.println("执行：UserService.afterPropertiesSet");
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
+    }
+
+    @Override
+    public void setBeanName(String name) {
+        System.out.println("Bean Name is: " + name);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }
