@@ -1,24 +1,8 @@
 package cn.xiaomizhou.springframework.test;
 
-import cn.hutool.core.io.IoUtil;
-import cn.xiaomizhou.springframework.beans.PropertyValue;
-import cn.xiaomizhou.springframework.beans.PropertyValues;
-import cn.xiaomizhou.springframework.beans.factory.config.BeanDefinition;
-import cn.xiaomizhou.springframework.beans.factory.config.BeanReference;
-import cn.xiaomizhou.springframework.beans.factory.support.DefaultListableBeanFactory;
-import cn.xiaomizhou.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import cn.xiaomizhou.springframework.context.support.ClassPathXmlApplicationContext;
-import cn.xiaomizhou.springframework.core.io.DefaultResourceLoader;
-import cn.xiaomizhou.springframework.core.io.Resource;
-import cn.xiaomizhou.springframework.test.bean.UserDao;
 import cn.xiaomizhou.springframework.test.bean.UserService;
-import cn.xiaomizhou.springframework.test.common.MyBeanFactoryPostProcessor;
-import cn.xiaomizhou.springframework.test.common.MyBeanPostProcessor;
-import org.junit.Before;
 import org.junit.Test;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 
 /**
@@ -28,15 +12,24 @@ import java.io.InputStream;
 public class ApiTest {
 
     @Test
-    public void test_xml() {
+    public void test_prototype() {
+        ClassPathXmlApplicationContext applicationContext =
+                new ClassPathXmlApplicationContext("classpath:spring.xml");
+        applicationContext.registerShutdownHook();
+
+        UserService userService01 = applicationContext.getBean("userService", UserService.class);
+        UserService userService02 = applicationContext.getBean("userService", UserService.class);
+        System.out.println(userService01);
+        System.out.println(userService02);
+    }
+
+    @Test
+    public void test_factory_bean() {
         ClassPathXmlApplicationContext applicationContext =
                 new ClassPathXmlApplicationContext("classpath:spring.xml");
         applicationContext.registerShutdownHook();
 
         UserService userService = applicationContext.getBean("userService", UserService.class);
-        userService.queryUserInfo();
-        System.out.println(userService);
-        System.out.println("ApplicationContextAware: " + userService.getApplicationContext());
-        System.out.println("BeanFactoryAware: " + userService.getBeanFactory());
+        System.out.println("测试结果：" + userService.queryUserInfo());
     }
 }

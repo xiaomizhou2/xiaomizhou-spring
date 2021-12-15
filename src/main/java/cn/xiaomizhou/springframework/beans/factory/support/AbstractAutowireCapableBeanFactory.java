@@ -15,6 +15,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 /**
+ *
  * @author Yaxi Zhang
  * @date 2021/12/1
  */
@@ -29,6 +30,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      *     1.通过 BeanDefinition 获取 BeanClass 对象去创建 Bean 对象
      *     2.加入到 Bean 对象单例容器中
      *     3.返回 Bean 对象
+     * </p>
+     * <p>
+     *     单例模式和原型模式的区别就是在于是否存放放在内存中，如果是原型模式那么就不会存放到内存中
+     *     每次获取都重新创建对象，另外非 Singleton 类型的 Bean 不需要执行销毁方法
      * </p>
      * @param beanName
      * @param beanDefinition
@@ -50,12 +55,17 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
         //注册实现了 DisposableBean 接口的 Bean 对象
         registerDisposableBeanIfNecessary(beanName, bean, beanDefinition);
-
-        addSingleton(beanName, bean);
+        //判断 scope 是否为单例
+        if (beanDefinition.isSingleton()) {
+            addSingleton(beanName, bean);
+        }
         return bean;
     }
 
     protected void registerDisposableBeanIfNecessary(String beanName, Object bean, BeanDefinition beanDefinition) {
+        // 非 Singleton 类型的 Bean 不执行销毁方法
+        if (!beanDefinition.isSingleton()) return;
+
         if (bean instanceof DisposableBean || StrUtil.isNotEmpty(beanDefinition.getDestroyMethodName())) {
             registerDisposableBean(beanName, new DisposableBeanAdapter(bean, beanName, beanDefinition));
         }

@@ -18,7 +18,7 @@
 
 - [x] 8.Aware感知容器对象
 
-- [ ] 9.对象作用域和FactoryBean
+- [x] 9.对象作用域和FactoryBean
 
 - [ ] 10.容器事件和事件监听器
 
