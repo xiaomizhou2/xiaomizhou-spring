@@ -24,7 +24,7 @@
 
 #### 代理篇：AOP
 
-- [ ] 11.基于JDK、Cglib实现AOP切面
+- [x] 11.基于JDK、Cglib实现AOP切面
 
 - [ ] 12.把AOP扩展到Bean的生命周期
 
